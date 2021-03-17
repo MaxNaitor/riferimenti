@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		crossorigin="anonymous" />
+	<meta charset="ISO-8859-1" />
+	<title>Admin</title>
+</h:head>
+<h:body
+	style="background-image: url('https://www.reviewbox.it/wp-content/uploads/2019/10/pulisci_vinili_principale-scaled.jpg');  background-repeat: round; background-size: contain;">
+	<br/>
+	<h1 align="center"><h:outputText value="Inserisci Album" class="bg-dark text-light rounded" /></h1>
+	<br />
+	<div align="center" class="bg-dark text-light rounded-circle"
+		style="width: 600px; position: relative; left: 330px; top: 33.33%">
+		<h:form id="inserimento">
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<p:outputLabel value="Nome" />
+			<br />
+			<p:inputText value="#{adminModel.album.nome}" />
+			<br />
+			<p:outputLabel value="Artista" />
+			<br />
+			<p:inputText value="#{adminModel.album.artista}" />
+			<br />
+			<p:outputLabel value="Anno d'uscita" />
+			<br />
+			<p:inputText value="#{adminModel.album.annoUscita}" maxlength="4" />
+			<br />
+			<p:outputLabel value="Genere" />
+			<br />
+			<p:inputText value="#{adminModel.album.genere}" />
+			<br />
+			<p:outputLabel value="Copertina" />
+			<br />
+			<p:inputText value="#{adminModel.album.copertina}" />
+			<br />
+			<br />
+			<h:commandButton id="tracklist" value="Inserisci Tracce"
+				type="button" class="btn btn-warning text-light"/>
+			<br />
+			<br />
+			<h:commandButton value="Inserisci Album"
+				action="#{adminModel.inserimento()}" update="inserimento" class="btn btn-success"/>
+
+			<p:overlayPanel for="tracklist" showEffect="fade" hideEffect="fade"
+				style="width:350px">
+				<h:form>
+					<p:outputLabel value="Titolo" />
+					<br />
+					<p:inputText value="#{adminModel.traccia.titolo}" />
+					<br />
+					<p:outputLabel value="Durata" />
+					<br />
+					<p:inputText value="#{adminModel.traccia.durata}" maxlength="5"
+						placeholder="**:**" />
+					<br />
+					<br />
+					<h:commandButton value="Inserisci Traccia"
+						actionListener="#{adminModel.aggiungiTracce()}" class="btn btn-success" />
+				</h:form>
+			</p:overlayPanel>
+		</h:form>
+		<br />
+		<h:form>
+			<h:commandButton value="Logout" action="#{adminModel.logout()}" class="btn btn-danger"/>
+
+		</h:form>
+		<br />
+
+	</div>
+</h:body>
+</html>

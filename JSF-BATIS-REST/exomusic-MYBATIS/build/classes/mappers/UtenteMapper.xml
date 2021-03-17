@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.UtenteMapper">
+	<resultMap type='Utente' id='UtenteResult'>
+		<id property='id' column='id' />
+		<result property='nome' column='nome' />
+		<result property='cognome' column='cognome' />
+		<result property='dataNascita' column='data_nascita' />
+		<result property='sesso' column='sesso' />
+		<result property='email' column='email' />
+		<result property='pass' column='pass' />
+	</resultMap>
+
+	<insert id="insert" parameterType="Utente">
+		INSERT INTO utenti
+		(nome,cognome,data_nascita,sesso,email,pass)
+		VALUES
+		(#{nome},#{cognome},#{dataNascita},#{sesso},#{email},#{pass});
+	</insert>
+
+	<select id="accesso" parameterType="Utente"
+		resultMap="UtenteResult">
+		SELECT * FROM utenti WHERE email = #{email} AND pass =
+		#{pass};
+	</select>
+
+	<insert id="acquista" parameterType="map">
+		INSERT INTO acquisti
+		(id_utente,id_album,data_acquisto) VALUES
+		(#{idUtente},#{idAlbum},NOW());
+	</insert>
+
+	<delete id="restituisci" parameterType="map">
+		DELETE FROM acquisti WHERE id_utente = #{idUtente} AND id_album =
+		#{idAlbum};
+	</delete>
+
+	<select id="getAll" resultMap="UtenteResult">
+		SELECT * FROM utenti
+	</select>
+
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.AlbumMapper">
+	<resultMap type='Album' id='AlbumResult'>
+		<id property='id' column='id' />
+		<result property='nome' column='nome' />
+		<result property='artista' column='artista' />
+		<result property='annoUscita' column='anno_uscita' />
+		<result property='genere' column='genere' />
+		<result property='copertina' column='copertina' />
+		<result property='dataInserimento' column='data_inserimento' />
+	</resultMap>
+
+	<select id="getAlbumsByUtente" resultMap="AlbumResult"
+		parameterType="Long">
+		SELECT * FROM album WHERE id IN (SELECT id_album
+		as id
+		FROM acquisti WHERE id_utente = #{id}) ORDER BY data_inserimento desc;
+	</select>
+
+	<select id="getAlbumsByUtenteOrderNome" resultMap="AlbumResult"
+		parameterType="Long">
+		SELECT * FROM album WHERE id IN (SELECT id_album
+		as id
+		FROM acquisti WHERE id_utente = #{id}) ORDER BY nome ASC;
+	</select>
+
+	<select id="getAlbumsByUtenteOrderGenere"
+		resultMap="AlbumResult" parameterType="Long">
+		SELECT * FROM album WHERE id IN
+		(SELECT id_album
+		as id
+		FROM acquisti WHERE id_utente = #{id}) ORDER BY
+		genere ASC;
+	</select>
+
+	<select id="getAlbumsByUtenteOrderUscita"
+		resultMap="AlbumResult" parameterType="Long">
+		SELECT * FROM album WHERE id IN
+		(SELECT id_album
+		as id
+		FROM acquisti WHERE id_utente = #{id}) ORDER BY anno_uscita DESC;
+	</select>
+
+	<select id="getAlbumsByUtenteOrderArtista"
+		resultMap="AlbumResult" parameterType="Long">
+		SELECT * FROM album WHERE id IN
+		(SELECT id_album
+		as id
+		FROM acquisti WHERE id_utente = #{id}) ORDER BY
+		artista ASC;
+	</select>
+
+	<select id="getAll" resultMap="AlbumResult">
+		SELECT * FROM album
+	</select>
+
+	<select id="getAllByArtista" resultMap="AlbumResult">
+		SELECT * FROM album ORDER
+		BY artista ASC
+	</select>
+
+	<select id="getAllByUscita" resultMap="AlbumResult">
+		SELECT * FROM album ORDER
+		BY anno_uscita DESC
+	</select>
+
+	<select id="getAllByNome" resultMap="AlbumResult">
+		SELECT * FROM album ORDER BY
+		nome ASC
+	</select>
+
+	<select id="getAllByGenere" resultMap="AlbumResult">
+		SELECT * FROM album ORDER
+		BY genere ASC
+	</select>
+
+	<select id="getAllByInserimento" resultMap="AlbumResult">
+		SELECT * FROM album
+		ORDER BY data_inserimento DESC
+	</select>
+
+	<select id="findDataAcquisto" parameterType="map"
+		resultType="java.time.LocalDate">
+		SELECT data_acquisto FROM acquisti WHERE id_utente =
+		#{idUtente} AND
+		id_album = #{idAlbum};
+	</select>
+
+	<insert id="insert" parameterType="Album">
+		INSERT INTO album
+		(nome,artista,anno_uscita,genere,copertina,data_inserimento)
+		VALUES
+		(#{nome},#{artista},#{annoUscita},#{genere},#{copertina},#{dataInserimento});
+
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select
+			last_insert_id() as id
+		</selectKey>
+	</insert>
+
+	<select id="findById" parameterType="Long"
+		resultMap="AlbumResult">
+		SELECT * FROM album WHERE id = #{id}
+	</select>
+
+</mapper>

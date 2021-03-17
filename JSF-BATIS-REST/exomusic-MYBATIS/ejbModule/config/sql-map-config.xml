@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+		<!-- <setting name="logImpl" value="LOG4J"/> -->
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias='Utente' type='pojo.UtentePOJO' />
+		<typeAlias alias='Album' type='pojo.AlbumPOJO' />
+		<typeAlias alias='Traccia' type='pojo.TracciaPOJO' />
+	</typeAliases>
+
+	<environments default="MANAGED">
+		<environment id="MANAGED">
+
+			<transactionManager type="MANAGED" />
+
+			<dataSource type="JNDI">
+
+				<property name="data_source" value="java:/exoDS" />
+
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource='mappers/UtenteMapper.xml' />
+		<mapper resource='mappers/AlbumMapper.xml' />
+		<mapper resource='mappers/TracciaMapper.xml' />
+	</mappers>
+
+</configuration>

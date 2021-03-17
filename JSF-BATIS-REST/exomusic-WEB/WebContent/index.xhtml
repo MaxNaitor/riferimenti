@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		crossorigin="anonymous" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Accedi/Registrati</title>
+</h:head>
+<h:body
+	style="background-image: url('https://www.reviewbox.it/wp-content/uploads/2019/10/pulisci_vinili_principale-scaled.jpg');  background-repeat: round; background-size: contain;">
+	<div align="center">
+		<h1 class="bg-dark text-light">Benvenuto in ExoMusic</h1>
+		<h:form>
+			<p:messages id="messages" showDetail="true" closable="true"
+				style="width: 600px">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6 bg-dark text-light rounded-circle" align="center"
+			style="opacity: 0.9">
+			<h1>Accedi</h1>
+			<h:form id="accesso">
+				<p:outputLabel value="Email" />
+				<br />
+				<p:inputText id="email" value="#{utentiModel.utente.email}"
+					required="true" requiredMessage="Email Obbligatoria" />
+				<br />
+				<p:outputLabel value="Password" />
+				<br />
+				<p:password id="pass" value="#{utentiModel.utente.pass}"
+					required="true" requiredMessage="Password Obbligatoria" />
+				<br />
+				<br />
+				<h:commandButton value="Accedi" action="#{utentiModel.accedi()}"
+					update="accesso" class="btn btn-success text-light" />
+			</h:form>
+			<br />
+			<h:form id="admin">
+				<h1>Accedi come Amministratore</h1>
+				<p:outputLabel value="Codice Amministratore" />
+				<br />
+				<p:password value="#{adminModel.passwordInserita}" required="true"
+					requiredMessage="Inserire Codice Amministratore" />
+				<br />
+				<br />
+				<h:commandButton value="Accedi" action="#{adminModel.accesso()}"
+					update="admin" class="btn btn-danger text-light" />
+			</h:form>
+		</div>
+		
+		<div class="col-md-6 bg-dark text-light rounded-circle" align="center"
+			style="opacity: 0.9">
+			<h1>Registrati</h1>
+			<h:form id="form">
+				<h:outputLabel value="Nome" />
+				<br />
+				<p:inputText id="nome" value="#{utentiModel.utente.nome}"
+					required="true" requiredMessage="Nome Obbligatorio" />
+				<br />
+				<p:outputLabel value="Cognome" />
+				<br />
+				<p:inputText id="cognome" value="#{utentiModel.utente.cognome}"
+					required="true" requiredMessage="Cognome Obbligatorio" />
+				<br />
+				<p:outputLabel value="Data di nascita" />
+				<br />
+				<p:calendar id="nascita" value="#{utentiModel.utente.dataNascita}"
+					required="true" requiredMessage="Data di nascita Obbligatoria" />
+				<br />
+				<p:outputLabel value="Sesso" />
+				<br />
+				<p:selectOneRadio id="sesso" value="#{utentiModel.utente.sesso}"
+					required="true" requiredMessage="Inserisci il sesso">
+					<f:selectItem itemLabel="M" itemValue="M" />
+					<f:selectItem itemLabel="F" itemValue="F" />
+				</p:selectOneRadio>
+				<br />
+				<p:outputLabel value="Email" />
+				<br />
+				<p:inputText id="email" value="#{utentiModel.utente.email}"
+					required="true" requiredMessage="Email Obbligatoria" />
+				<br />
+				<p:outputLabel value="Password" />
+				<br />
+				<p:password id="pass" value="#{utentiModel.utente.pass}"
+					required="true" requiredMessage="Password Obbligatoria" />
+				<br />
+				<br />
+				<h:commandButton value="Registrati"
+					action="#{utentiModel.registrazione()}" update="form"
+					class="btn btn-warning text-light" />
+			</h:form>
+			<br />
+		</div>
+	</div>
+</h:body>
+</html>

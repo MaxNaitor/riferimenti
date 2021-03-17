@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.TracciaMapper">
+	<resultMap type='Traccia' id='TracciaResult'>
+		<id property="id" column="id" />
+		<result property="titolo" column="titolo" />
+		<result property="durata" column="durata" />
+		<result property="idAlbum" column="id_album" />
+	</resultMap>
+
+	<select id="findTracceByAlbum" parameterType="Long"
+		resultMap="TracciaResult">
+		SELECT * FROM tracce WHERE id_album = #{id}
+	</select>
+
+	<insert id="insert" parameterType="Traccia">
+		INSERT INTO tracce (titolo,durata,id_album) VALUES
+		(#{titolo},#{durata},#{idAlbum});
+	</insert>
+
+</mapper>

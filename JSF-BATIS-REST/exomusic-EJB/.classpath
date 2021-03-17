@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="ejbModule"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/wildfly-22.0.1.Final/modules/system/layers/base/javax/ejb/api/main/jboss-ejb-api_3.2_spec-2.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="C:/wildfly-22.0.1.Final/modules/system/layers/base/javax/persistence/api/main/jakarta.persistence-api-2.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/wildfly-22.0.1.Final/modules/system/layers/base/javax/annotation/api/main/jboss-annotations-api_1.3_spec-2.0.1.Final.jar"/>
+	<classpathentry kind="src" path="/exomusic-JPA"/>
+	<classpathentry kind="src" path="/exomusic-MYBATIS"/>
+	<classpathentry kind="lib" path="C:/wildfly-22.0.1.Final/modules/system/layers/base/javax/validation/api/main/jakarta.validation-api-2.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/wildfly-22.0.1.Final/modules/system/layers/base/javax/ws/rs/api/main/jboss-jaxrs-api_2.1_spec-2.0.1.Final.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

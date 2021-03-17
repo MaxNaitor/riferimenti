@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		crossorigin="anonymous" />
+	<link rel="stylesheet" href="css/general.css" />
+	<meta charset="UTF-8" />
+	<title>Negozio</title>
+	<style type="text/css">
+.nuovo {
+	background-color: #54a90a;
+	background-image: none;
+	color: #ffffff;
+}
+</style>
+</h:head>
+<h:body
+	style="background-image: url('https://www.reviewbox.it/wp-content/uploads/2019/10/pulisci_vinili_principale-scaled.jpg');  background-repeat: no-repeat; background-size: 100% auto;">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarTogglerDemo03"
+			aria-controls="navbarTogglerDemo03" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<h:form>
+			<h:commandLink class="navbar-brand"
+				action="#{utentiModel.homepage()}"
+				value="#{utentiModel.utente.nome}" />
+		</h:form>
+
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				<li class="nav-item active"><a class="nav-link" href="#">Negozio
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><h:form>
+						<h:commandLink class="nav-link" action="#{utentiModel.logout()}"
+							value="Logout" />
+					</h:form></li>
+			</ul>
+		</div>
+	</nav>
+
+	<br />
+	<div align="center">
+		<div class="card bg-dark" style="width: 1200px">
+			<br />
+			<h3>
+				<h:outputText
+					value="Benvenuto nel negozio, #{utentiModel.utente.nome}!"
+					class="bg-dark text-light rounded" />
+			</h3>
+			<h:form>
+				<div class="ui-fluid p-formgrid p-grid" style="width: 400px">
+					<br />
+					<p:selectOneMenu value="#{albumModel.ordine}">
+						<f:selectItem itemLabel="Scegli l'ordine" itemValue="-" />
+						<f:selectItem itemLabel="Ordina per Nome" itemValue="nome" />
+						<f:selectItem itemLabel="Ordina per Artista" itemValue="artista" />
+						<f:selectItem itemLabel="Ordina per Data di uscita"
+							itemValue="uscita" />
+						<f:selectItem itemLabel="Ordina per Genere" itemValue="genere" />
+						<f:selectItem itemLabel="Ordina per Novità"
+							itemValue="inserimento" />
+					</p:selectOneMenu>
+				</div>
+				<h:commandButton action="#{albumModel.visualizzaNegozio()}"
+					value="Aggiorna" class="btn btn-info" />
+			</h:form>
+		</div>
+		<div
+			style="height: 100%; width: 100%; position: fixed; top: 42%; left: 0%">
+			<p:dataTable var="album" value="#{albumModel.catalogo}"
+				style="width: 1200px; text-align: center;" scrollable="true"
+				scrollHeight="280" rowStyleClass="#{album.nuovo ? 'nuovo' : null}">
+				<p:column class="tabCol">
+					<f:facet name="header">
+						<h:outputText value="Copertina" />
+					</f:facet>
+					<p:graphicImage value="#{album.copertina}"
+						style="heigth: 100px; width: 100px" />
+					<h:outputText value="(NUOVO)" rendered="#{album.nuovo}" />
+				</p:column>
+				<p:column class="tabCol">
+					<f:facet name="header">
+						<h:outputText value="Album" />
+					</f:facet>
+					<h:outputText value="#{album.nome}" />
+				</p:column>
+				<p:column class="tabCol">
+					<f:facet name="header">
+						<h:outputText value="Artista" />
+					</f:facet>
+					<h:outputText value="#{album.artista}" />
+				</p:column>
+				<p:column class="tabCol">
+					<f:facet name="header">
+						<h:outputText value="Uscita" />
+					</f:facet>
+					<h:outputText value="#{album.annoUscita}" />
+				</p:column>
+				<p:column class="tabCol">
+					<f:facet name="header">
+						<h:outputText value="Genere" />
+					</f:facet>
+					<h:outputText value="#{album.genere}" />
+				</p:column>
+				<p:column class="tabCol">
+					<f:facet name="header">
+						<h:outputText value="Acquista" />
+					</f:facet>
+					<h:panelGrid rendered="#{album.acquistato}">
+						<h:outputText value="Già Acquistato" />
+					</h:panelGrid>
+					<h:form rendered="#{!album.acquistato}">
+						<input type="hidden" name="albumID" value="#{album.id}" />
+						<input type="hidden" name="albumNOME" value="#{album.nome}" />
+						<h:commandButton value="Acquista"
+							action="#{utentiModel.acquista()}" class="btn btn-info" />
+					</h:form>
+				</p:column>
+				<p:column class="tabCol">
+					<f:facet name="header">
+						<h:outputText value="Tracce" />
+					</f:facet>
+					<h:outputText value="#{album.tracce.size()}" />
+				</p:column>
+				<p:column class="tabCol">
+					<f:facet name="header">
+						<h:outputText value="Visualizza Tracce" />
+					</f:facet>
+					<h:form>
+						<input type="hidden" name="albumID" value="#{album.id}" />
+						<h:commandButton id="tracklist" value="Visualizza" type="button"
+							class="btn btn-info" />
+						<p:overlayPanel for="tracklist" showEffect="fade"
+							hideEffect="fade" style="width:350px">
+							<p:dataTable rendered="#{album.tracce != null}" var="traccia"
+								value="#{album.tracce}">
+								<p:column class="tabCol">
+									<f:facet name="header">
+										<h:outputText value="Titolo" />
+									</f:facet>
+									<h:outputText value="#{traccia.titolo}" />
+								</p:column>
+								<p:column class="tabCol">
+									<f:facet name="header">
+										<h:outputText value="Durata" />
+									</f:facet>
+									<h:outputText value="#{traccia.durata}" />
+								</p:column>
+							</p:dataTable>
+							<br />
+						</p:overlayPanel>
+					</h:form>
+				</p:column>
+			</p:dataTable>
+		</div>
+		<br />
+	</div>
+</h:body>
+</html>

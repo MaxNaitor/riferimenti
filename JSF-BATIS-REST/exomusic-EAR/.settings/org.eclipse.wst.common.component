@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+            
+    
+    <wb-module deploy-name="exomusic-EAR">
+                        
+        
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+                        
+        
+        <dependent-module archiveName="exomusic-JPA.jar" deploy-path="/lib" handle="module:/resource/exomusic-JPA/exomusic-JPA">
+                                    
+            
+            <dependency-type>uses</dependency-type>
+                                
+        
+        </dependent-module>
+                        
+        
+        <dependent-module archiveName="exomusic-EJB.jar" deploy-path="/" handle="module:/resource/exomusic-EJB/exomusic-EJB">
+                                    
+            
+            <dependent-object/>
+                                    
+            
+            <dependency-type>uses</dependency-type>
+                                
+        
+        </dependent-module>
+                
+        <dependent-module archiveName="exomusic-WEB.war" deploy-path="/" handle="module:/resource/exomusic-WEB/exomusic-WEB">
+                        
+            <dependent-object/>
+                        
+            <dependency-type>uses</dependency-type>
+                    
+        </dependent-module>
+        <dependent-module archiveName="exomusic-MYBATIS.jar" deploy-path="/" handle="module:/resource/exomusic-MYBATIS/exomusic-MYBATIS">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                    
+    
+    </wb-module>
+        
+
+</project-modules>
