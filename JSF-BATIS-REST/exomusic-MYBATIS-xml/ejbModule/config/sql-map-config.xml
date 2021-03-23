@@ -28,9 +28,9 @@
 	</environments>
 
 	<mappers>
-		<mapper class="mappers.UtenteMapper" />
-		<mapper class="mappers.AlbumMapper" />
-		<mapper class="mappers.TracciaMapper" />
+		<mapper resource='mappers/UtenteMapper.xml' />
+		<mapper resource='mappers/AlbumMapper.xml' />
+		<mapper resource='mappers/TracciaMapper.xml' />
 	</mappers>
 
 </configuration>
