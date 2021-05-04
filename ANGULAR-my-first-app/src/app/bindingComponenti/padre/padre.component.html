@@ -1,0 +1,7 @@
+<h1 *ngIf="dipendenti.length >= 1;else noDip">Lista dipendenti</h1>
+<ng-template #noDip>
+    <h1>Nessun dipendente</h1>
+</ng-template>
+
+<app-figlio (assunzione)="onAssunzione($event)"></app-figlio>
+<app-figlio-lista *ngFor="let dip of dipendenti" [dipendente]="dip"></app-figlio-lista>
