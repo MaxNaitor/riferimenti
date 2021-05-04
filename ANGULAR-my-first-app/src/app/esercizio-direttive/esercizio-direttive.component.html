@@ -1,0 +1,4 @@
+<button class="btn btn-primary" (click)="toggle()">Mostra Paragrafo</button>
+<p *ngIf="mostra" >esercizio-direttive works!</p>
+<p [ngStyle]="{backgroundColor: blueBackground()}" [ngClass]="{togglePar: click >= 5}">Hai cliccato {{click}} volte</p>
+<p *ngFor="let n of clickArray; let i = index" [ngStyle]="{backgroundColor: i %2 ==0 ? 'pink' : 'red'}">{{n}}</p>

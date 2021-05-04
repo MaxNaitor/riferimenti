@@ -1,1 +1,4 @@
-<h1>Server {{ID}} è {{status}}</h1>
+<!-- la direttiva è solo ngStyle, con [] indichiamo che vogliamo bindarlo con una proprietà -->
+<h1 [ngStyle]="{backgroundColor: getCSSColor()}"
+ [ngClass]="{offline: status==='offline',online: status === 'online'}"> <!-- ngClass usa come key la classe definita negli styles del componente.ts e come value la condizione -->
+ Server {{ID}} è {{status}}</h1>

@@ -1,9 +1,13 @@
 <!-- bindando l'attributo disabled,esso si modificherà dinamicamente seguendo il valore di allowNewServers-->
 <button class="btn btn-primary" [disabled]="!allowNewServers" (click)="onCreateServer()">Aggiungi Server</button>
-<h3>{{ serverCreationStatus }}</h3>
+<h3 *ngIf="serverCreated; else noServers">{{ serverCreationStatus }}</h3>
+<!-- #noServers identifica <ng-template> come variabile di template -->
+<ng-template #noServers>
+    <h3>No Server Created</h3>
+</ng-template>
 <h3>{{serverName}}</h3>
 <!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)"/> PASSO L'EVENT AL COMPONENTE PER UTILIZZARNE IL TARGET.VALUE-->
 <input type="text" class="form-control" [(ngModel)]="serverName"/> <!-- [(ngModel)] modifica e visualizza la proprietà serverName-->
-<app-server></app-server>
-<app-server></app-server>
+
+<app-server *ngFor="let server of servers"></app-server>
 
