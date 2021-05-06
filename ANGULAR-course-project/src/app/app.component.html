@@ -2,9 +2,9 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes *ngIf="renderComponent === 'recipe'; else shopping"></app-recipes>
-      <ng-template #shopping>
-        <app-shopping-list></app-shopping-list>
+      <app-shopping-list *ngIf="renderComponent === 'shopping'; else recipe"></app-shopping-list>
+      <ng-template #recipe>
+        <app-recipes></app-recipes>
       </ng-template>
     </div>
   </div>
