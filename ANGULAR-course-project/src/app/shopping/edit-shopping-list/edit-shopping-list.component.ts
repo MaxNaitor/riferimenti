@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { ShoppingService } from 'src/app/services/shopping.service';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 
 @Component({
@@ -8,18 +9,21 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 })
 export class EditShoppingListComponent implements OnInit {
 
-  @Output() onAddButton = new EventEmitter<Ingredient>();
   //@ViewChild recupera l'elemento contrassegnato da #nameInput che sarà di tipo ElementRef
   // il valore dell'input sarà accessibile con .nativeElement.value
   //@ViewChild('nameInput',{static: false}) nameInputRef: ElementRef;
 
-  aggiungiIngrediente(name: string, amount: string) {
-    this.onAddButton.emit(new Ingredient(name, parseInt(amount, 10)))
-  }
-
-  constructor() { }
+  constructor(private shoppingService: ShoppingService) { }
 
   ngOnInit(): void {
   }
+
+  aggiungiIngrediente(name: string, amount: string) {
+    this.shoppingService.addToList(new Ingredient(name,parseInt(amount,10)))
+  }
+
+  
+
+
 
 }
