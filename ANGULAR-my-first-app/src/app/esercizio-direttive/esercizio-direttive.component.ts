@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoggingService } from '../services/logging.service';
 
 @Component({
   selector: 'app-esercizio-direttive',
@@ -15,6 +16,7 @@ export class EsercizioDirettiveComponent implements OnInit {
     this.mostra = !this.mostra
     this.click++
     this.clickArray.push(this.click);
+    this.logger.logToConsole('service')
   }
 
   blueBackground() {
@@ -23,7 +25,7 @@ export class EsercizioDirettiveComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(private logger: LoggingService) { }
 
   ngOnInit(): void {
   }

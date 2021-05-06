@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ANGULAR-course-project';
+  title = 'Angular';
+  renderComponent: string;
+
+  onToggle(component: { componentName: string }) {
+    this.renderComponent = component.componentName;
+  }
 }
