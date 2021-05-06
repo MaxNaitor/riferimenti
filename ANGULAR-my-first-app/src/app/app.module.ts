@@ -10,6 +10,9 @@ import { WarningAlertComponent } from './warning-alert/warning-alert.component';
 import { SuccessAlertComponent } from './success-alert/success-alert.component';
 import { UserComponent } from './user/user.component';
 import { EsercizioDirettiveComponent } from './esercizio-direttive/esercizio-direttive.component';
+import { PadreComponent } from './bindingComponenti/padre/padre.component';
+import { FiglioComponent } from './bindingComponenti/figlio/figlio.component';
+import { FiglioListaComponent } from './bindingComponenti/figlio-lista/figlio-lista.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { EsercizioDirettiveComponent } from './esercizio-direttive/esercizio-dir
     WarningAlertComponent,
     SuccessAlertComponent,
     UserComponent,
-    EsercizioDirettiveComponent
+    EsercizioDirettiveComponent,
+    PadreComponent,
+    FiglioComponent,
+    FiglioListaComponent
   ],
   imports: [
     BrowserModule,
