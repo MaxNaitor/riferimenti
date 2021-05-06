@@ -13,6 +13,8 @@ import { EsercizioDirettiveComponent } from './esercizio-direttive/esercizio-dir
 import { PadreComponent } from './bindingComponenti/padre/padre.component';
 import { FiglioComponent } from './bindingComponenti/figlio/figlio.component';
 import { FiglioListaComponent } from './bindingComponenti/figlio-lista/figlio-lista.component';
+import { InserimentoComponent } from './esercizioService/inserimento/inserimento.component';
+import { VisualizzazioneComponent } from './esercizioService/visualizzazione/visualizzazione.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { FiglioListaComponent } from './bindingComponenti/figlio-lista/figlio-li
     EsercizioDirettiveComponent,
     PadreComponent,
     FiglioComponent,
-    FiglioListaComponent
+    FiglioListaComponent,
+    InserimentoComponent,
+    VisualizzazioneComponent
   ],
   imports: [
     BrowserModule,

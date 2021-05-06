@@ -1,0 +1,4 @@
+<input type="text" placeholder="nome" [(ngModel)]="nome">
+<p>{{nome}}</p>
+<button class="btn btn-info" (click)="handleClick()">Inserisci</button>
+<app-visualizzazione *ngFor="let nome of nomi" [nome]="nome"></app-visualizzazione>
