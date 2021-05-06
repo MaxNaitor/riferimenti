@@ -10,7 +10,9 @@ import { UsersService } from '../services/users.service';
 export class InactiveUsersComponent {
   users: string[];
 
-  constructor(private usersService: UsersService, private counterService: CounterService) {
+  constructor(private usersService: UsersService, private counterService: CounterService) { }
+
+  ngOnInit() {
     this.users = this.usersService.inactiveUsers
   }
 
