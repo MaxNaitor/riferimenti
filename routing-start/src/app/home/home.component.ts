@@ -10,8 +10,8 @@ export class HomeComponent {
 
   constructor(private router: Router) { }
 
-  onLoadServers() {
+  onLoadServers(id: number) {
     //operazioni da eseguire
-    this.router.navigate(['/servers'])
+    this.router.navigate(['/servers',id,'edit'],{queryParams: {allowEdit: 1}, fragment: 'loading'})
   }
 }

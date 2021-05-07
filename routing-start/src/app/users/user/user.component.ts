@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -8,6 +9,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class UserComponent implements OnInit {
   user: { id: number, name: string };
+  paramSubscription: Subscription
 
   constructor(private route: ActivatedRoute) { }
 
@@ -20,9 +22,13 @@ export class UserComponent implements OnInit {
 
     //ad ogni successiva chiamata,soprattutto se effettuttuata all'interno dello stesso componente,uso l' Observable params,a cui mi iscrivo
     //per ricevere gli aggiornamenti
-    this.route.params.subscribe((params: Params) => {
+    this.paramSubscription = this.route.params.subscribe((params: Params) => {
       this.user.id = params['id']
       this.user.name = params['name']
     })
+  }
+
+  ngOnDestroy () {
+    this.paramSubscription.unsubscribe()
   }
 }
