@@ -1,0 +1,4 @@
+<h1 *ngIf="isNew; else edit">New Recipe!</h1>
+<ng-template #edit>
+    <h1>Edit Recipe: {{recipe.name}} !</h1>
+</ng-template>

@@ -11,15 +11,6 @@ export class HeaderComponent implements OnInit {
 
   componentName: string;
 
-  handleClick(compName: string) {
-    this.componentName = compName;
-    this.toggle()
-  }
-
-  toggle() {
-    this.toggleComponents.emit({componentName: this.componentName})
-  }
-
   constructor() { }
 
   ngOnInit(): void {

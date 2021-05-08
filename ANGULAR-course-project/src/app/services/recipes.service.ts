@@ -1,11 +1,12 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Recipe } from '../recipes/recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipesService {
+export class RecipesService implements OnInit {
 
   private recipes: Recipe[] = [
     new Recipe('Pancake', 'Boni', 'https://blog.giallozafferano.it/allacciateilgrembiule/wp-content/uploads/2018/03/pancake-ricetta-5.jpg',[new Ingredient('Farina',1),new Ingredient('Zuccero',2)]),
@@ -14,9 +15,18 @@ export class RecipesService {
 
   @Output() recipeSelected = new EventEmitter<Recipe>();
 
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    alert(this.route.snapshot.params['id'])
+  }
+
   getRecipes() {
     return this.recipes.slice();
   }
+
+  getRecipe(id:number) {
+    return this.recipes[id]
+  }
   
-  constructor() { }
 }

@@ -1,4 +1,5 @@
-import { Component,Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { Recipe } from '../recipe.model';
 
@@ -9,6 +10,7 @@ import { Recipe } from '../recipe.model';
 })
 export class RecipeItemComponent implements OnInit {
 
+  @Input() recipeId: number
   @Input() recipe: Recipe;
 
   select() {
@@ -17,7 +19,7 @@ export class RecipeItemComponent implements OnInit {
 
   constructor(private recipesService: RecipesService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }
