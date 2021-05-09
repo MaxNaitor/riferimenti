@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 
 @Injectable({
@@ -11,16 +12,17 @@ export class ShoppingService {
     new Ingredient('Tomatoes', 15)
   ]
 
-  @Output() updateList = new EventEmitter<Ingredient[]>();
+  // @Output() updateList = new EventEmitter<Ingredient[]>();
+  updateList = new Subject<Ingredient[]>()
 
   addToList(ingredient: Ingredient) {
     this.ingredients.push(ingredient)
-    this.updateList.emit(this.ingredients.slice());
+    this.updateList.next(this.ingredients.slice());
   }
 
   addRecipeIngredientsToList(ingredients: Ingredient[]) {
     this.ingredients.push(...ingredients) //lo spread operator è una shortcut che simula un ciclo per inserire uno ad uno gli elementi dell'array
-    this.updateList.emit(this.ingredients.slice());
+    this.updateList.next(this.ingredients.slice());
   }
 
   getIngredients() {

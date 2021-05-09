@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 import { Recipe } from '../recipes/recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 
@@ -13,7 +14,8 @@ export class RecipesService implements OnInit {
     new Recipe('Penne al tonno', 'Basta tonno', 'https://www.cucchiaio.it/content/cucchiaio/it/ricette/2016/01/penne-ritorte-al-tonno-finocchietto-e-zafferano/_jcr_content/header-par/image-single.img10.jpg/1504538025966.jpg',[new Ingredient('Pasta',1),new Ingredient('Tonno',2)])
   ];
 
-  @Output() recipeSelected = new EventEmitter<Recipe>();
+  // @Output() recipeSelected = new EventEmitter<Recipe>();
+  recipeSelected = new Subject<Recipe>()
 
   constructor(private route: ActivatedRoute) { }
 

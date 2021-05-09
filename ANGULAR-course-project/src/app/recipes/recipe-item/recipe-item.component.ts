@@ -14,7 +14,7 @@ export class RecipeItemComponent implements OnInit {
   @Input() recipe: Recipe;
 
   select() {
-    this.recipesService.recipeSelected.emit(this.recipe)
+    this.recipesService.recipeSelected.next(this.recipe)
   }
 
   constructor(private recipesService: RecipesService) { }
