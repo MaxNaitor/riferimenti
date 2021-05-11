@@ -6,7 +6,7 @@
         <div class="form-group">
           <input type="text" formControlName="name" placeholder="Name" class="form-control">
           <span *ngIf="projectForm.get('name').errors !== null">
-            <span class="help-bloc" *ngIf="projectForm.get('name').errors['nameIsInvalid'] ">Test is not a valid
+            <span class="help-block" *ngIf="projectForm.get('name').errors['nameIsInvalid'] ">Test is not a valid
               name!</span>
           </span>
         </div>

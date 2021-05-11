@@ -25,8 +25,17 @@ export class ShoppingService {
     this.updateList.next(this.ingredients.slice());
   }
 
+  delete(id: number) {
+    this.ingredients.splice(id, 1)
+    this.updateList.next(this.ingredients.slice())
+  }
+
   getIngredients() {
     return this.ingredients.slice()
+  }
+
+  getIngredient(id: number) {
+    return this.ingredients[id]
   }
 
   constructor() { }

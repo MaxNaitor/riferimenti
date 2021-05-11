@@ -1,9 +1,10 @@
 <div class="row">
     <div class="col-md-10">
-        <app-edit-shopping-list></app-edit-shopping-list>
+        <router-outlet></router-outlet>
         <hr>
         <ul class="list-group">
-            <a class="list-group-item" style="cursor: pointer;" *ngFor="let ing of ingredients">
+            <a class="list-group-item" style="cursor: pointer;" *ngFor="let ing of ingredients; let i = index"
+                [routerLink]="['/shopping',i,'edit']">
                 {{ing.name}} ({{ing.amount}})
             </a>
         </ul>

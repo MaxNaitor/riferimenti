@@ -10,25 +10,40 @@ import { Ingredient } from '../shared/ingredient.model';
 export class RecipesService implements OnInit {
 
   private recipes: Recipe[] = [
-    new Recipe('Pancake', 'Boni', 'https://blog.giallozafferano.it/allacciateilgrembiule/wp-content/uploads/2018/03/pancake-ricetta-5.jpg',[new Ingredient('Farina',1),new Ingredient('Zuccero',2)]),
-    new Recipe('Penne al tonno', 'Basta tonno', 'https://www.cucchiaio.it/content/cucchiaio/it/ricette/2016/01/penne-ritorte-al-tonno-finocchietto-e-zafferano/_jcr_content/header-par/image-single.img10.jpg/1504538025966.jpg',[new Ingredient('Pasta',1),new Ingredient('Tonno',2)])
+    new Recipe('Pancake', 'Boni', 'https://blog.giallozafferano.it/allacciateilgrembiule/wp-content/uploads/2018/03/pancake-ricetta-5.jpg', [new Ingredient('Farina', 1), new Ingredient('Zuccero', 2)]),
+    new Recipe('Penne al tonno', 'Basta tonno', 'https://www.cucchiaio.it/content/cucchiaio/it/ricette/2016/01/penne-ritorte-al-tonno-finocchietto-e-zafferano/_jcr_content/header-par/image-single.img10.jpg/1504538025966.jpg', [new Ingredient('Pasta', 1), new Ingredient('Tonno', 2)])
   ];
 
   // @Output() recipeSelected = new EventEmitter<Recipe>();
   recipeSelected = new Subject<Recipe>()
+  updateRecipeList = new Subject<Recipe[]>()
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    alert(this.route.snapshot.params['id'])
+  }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe)
+    this.updateRecipeList.next(this.recipes)
+  }
+
+  updateRecipe(id: number, recipe: Recipe) {
+    this.recipes[id] = recipe;
+    this.updateRecipeList.next(this.recipes)
+  }
+
+  deleteRecipe(id: number) {
+    this.recipes.splice(id, 1)
+    this.updateRecipeList.next(this.recipes)
   }
 
   getRecipes() {
     return this.recipes.slice();
   }
 
-  getRecipe(id:number) {
+  getRecipe(id: number) {
     return this.recipes[id]
   }
-  
+
 }

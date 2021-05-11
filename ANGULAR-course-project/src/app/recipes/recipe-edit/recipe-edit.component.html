@@ -2,3 +2,70 @@
 <ng-template #edit>
     <h1>Edit Recipe: {{recipe.name}} !</h1>
 </ng-template>
+<div class="row">
+    <div class="col-md-7">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="name">Recipe Name</label>
+                <input type="text" class="form-control" formControlName="name">
+                <span class="help-block" *ngIf="!form.get('name').valid && form.get('name').touched">
+                    Insert a valid name!
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" formControlName="description">
+                <span class="help-block" *ngIf="!form.get('description').valid && form.get('description').touched">
+                    Insert a valid description!
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="imagePath">Image Path</label>
+                <input type="text" class="form-control" formControlName="imagePath">
+                <span class="help-block" *ngIf="!form.get('imagePath').valid && form.get('imagePath').touched">
+                    Insert a valid image path!
+                </span>
+            </div>
+            <div formArrayName="ingredients" class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <button class="btn btn-primary form-control" (click)="onAddIngredient()" type="button">
+                            Add Ingredient</button>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success form-control" type="submit"
+                            [disabled]=" getIngredientsControl().length === 0 || !form.valid">Save Recipe</button>
+                    </div>
+                </div>
+                <div class="col-md-7" style="overflow-y: auto; height: 15vh;">
+                    <div *ngFor="let ingredient of getIngredientsControl();let i = index" [formGroupName]="i">
+                        <div class="row">
+                            <div class="col-md-4 form-group" style="padding: 0 0 0 0;margin: 0 0 0 0;">
+                                <input type="text" formControlName="name" class="form-control" placeholder="Name">
+                                <span class="help-block"
+                                    *ngIf="!getIngredientsControl()[i].get('name').valid && getIngredientsControl()[i].get('name').touched">
+                                    Insert a valid name!
+                                </span>
+                            </div>
+                            <div class="col-md-6 form-group" style="padding: 0 0 0 0;margin-left: 2%;">
+                                <input type="number" formControlName="amount" class="form-control" placeholder="Amount">
+                                <span *ngIf="getIngredientsControl()[i].get('amount').errors !== null">
+                                    <span class="help-block"
+                                        *ngIf="getIngredientsControl()[i].get('amount').errors['invalidAmount'] && getIngredientsControl()[i].get('amount').touched">
+                                        Amount must be greater than 0!
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col-md-1">
+                                <i class="bi bi-x-circle-fill" (click)="deleteIngredient(i)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-5">
+        <img [src]="form.get('imagePath').value" alt="" style="max-height: 300px; max-width: 300px;">
+    </div>
+</div>
