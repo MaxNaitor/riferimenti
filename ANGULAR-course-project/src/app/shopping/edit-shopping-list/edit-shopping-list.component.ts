@@ -15,10 +15,10 @@ export class EditShoppingListComponent implements OnInit {
   @ViewChild('form', { static: true }) form: NgForm
 
   selectedIngredient: Ingredient = {
+    id: '',
     name: '',
     amount: undefined
   }
-  ingredientId: number;
   formIsValid = false;
   editMode = false;
   buttonValue: string;
@@ -38,8 +38,9 @@ export class EditShoppingListComponent implements OnInit {
       if (params['id'] !== undefined) {
         this.editMode = true;
         this.buttonValue = 'Update'
-        this.ingredientId = +params['id']
-        this.selectedIngredient = this.shoppingService.getIngredient(+params['id'])
+        this.shoppingService.getIngredient(params['id']).subscribe((ingredient: Ingredient) => {
+          this.selectedIngredient = ingredient
+        })
       } else {
         this.editMode = false;
         this.buttonValue = 'Add'
@@ -56,12 +57,13 @@ export class EditShoppingListComponent implements OnInit {
   }
 
   aggiungiIngrediente() {
-    this.shoppingService.addToList(new Ingredient(this.form.value.name, +this.form.value.amount))
+    this.shoppingService.addToList(new Ingredient(null, this.form.value.name, +this.form.value.amount))
   }
 
   modificaIngrediente() {
     this.selectedIngredient.name = this.form.value.name
     this.selectedIngredient.amount = this.form.value.amount
+    this.shoppingService.updateIngredient(this.selectedIngredient)
     this.router.navigate(['shopping'])
   }
 
@@ -71,7 +73,7 @@ export class EditShoppingListComponent implements OnInit {
   }
 
   delete() {
-    this.shoppingService.delete(this.ingredientId)
+    this.shoppingService.delete(this.selectedIngredient.id)
     this.router.navigate(['shopping'])
   }
 

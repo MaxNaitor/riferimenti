@@ -15,6 +15,7 @@ export class RecipeEditComponent implements OnInit {
   isNew: boolean;
   recipeId: number;
   recipe: Recipe = {
+    id: '',
     name: '',
     description: '',
     imagePath: '',
@@ -28,8 +29,11 @@ export class RecipeEditComponent implements OnInit {
       this.isNew = params['id'] === undefined
       if (!this.isNew) {
         this.recipeId = +params['id']
-        this.recipe = this.recipeService.getRecipe(this.recipeId)
-        this.initForm(this.recipe.name, this.recipe.description, this.recipe.imagePath, this.recipe.ingredients)
+        this.recipeService.getRecipeById(params['id']).subscribe((recipe: Recipe) => {
+          this.recipe = recipe
+          this.initForm(this.recipe.name, this.recipe.description, this.recipe.imagePath, this.recipe.ingredients)
+        })
+
       } else {
         this.initForm(null, null, null, null)
       }
@@ -90,9 +94,9 @@ export class RecipeEditComponent implements OnInit {
     this.recipe.imagePath = this.form.get('imagePath').value
     this.recipe.ingredients = (<FormArray>this.form.get('ingredients')).value
     if (this.isNew) {
-      this.recipeService.addRecipe(this.recipe)
+      this.recipeService.addRecipeDb(this.recipe)
     } else {
-      this.recipeService.updateRecipe(this.recipeId, this.recipe)
+      this.recipeService.updateRecipe(this.recipe)
     }
     this.router.navigate(['recipes'])
   }

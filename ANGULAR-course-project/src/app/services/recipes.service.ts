@@ -1,49 +1,46 @@
-import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Recipe } from '../recipes/recipe.model';
-import { Ingredient } from '../shared/ingredient.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipesService implements OnInit {
+export class RecipesService {
 
-  private recipes: Recipe[] = [
-    new Recipe('Pancake', 'Boni', 'https://blog.giallozafferano.it/allacciateilgrembiule/wp-content/uploads/2018/03/pancake-ricetta-5.jpg', [new Ingredient('Farina', 1), new Ingredient('Zuccero', 2)]),
-    new Recipe('Penne al tonno', 'Basta tonno', 'https://www.cucchiaio.it/content/cucchiaio/it/ricette/2016/01/penne-ritorte-al-tonno-finocchietto-e-zafferano/_jcr_content/header-par/image-single.img10.jpg/1504538025966.jpg', [new Ingredient('Pasta', 1), new Ingredient('Tonno', 2)])
-  ];
+  private baseURL = 'http://localhost:8080/api/recipes/'
 
-  // @Output() recipeSelected = new EventEmitter<Recipe>();
   recipeSelected = new Subject<Recipe>()
   updateRecipeList = new Subject<Recipe[]>()
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
+  getAllRecipes() {
+    return this.http.get(this.baseURL)
   }
 
-  addRecipe(recipe: Recipe) {
-    this.recipes.push(recipe)
-    this.updateRecipeList.next(this.recipes)
+  getRecipeById(id: string) {
+    return this.http.get(this.baseURL + id)
   }
 
-  updateRecipe(id: number, recipe: Recipe) {
-    this.recipes[id] = recipe;
-    this.updateRecipeList.next(this.recipes)
+  addRecipeDb(recipe: Recipe) {
+    this.http.post(this.baseURL, recipe).subscribe((resultData: Recipe[]) => {
+      this.updateRecipeList.next(resultData)
+    })
   }
 
-  deleteRecipe(id: number) {
-    this.recipes.splice(id, 1)
-    this.updateRecipeList.next(this.recipes)
+  updateRecipe(recipe: Recipe) {
+    this.http.post(this.baseURL + 'update', recipe).subscribe((newList: Recipe[]) => {
+      this.updateRecipeList.next(newList)
+    })
+
   }
 
-  getRecipes() {
-    return this.recipes.slice();
-  }
+  deleteRecipe(id: string) {
+    this.http.delete(this.baseURL + id).subscribe((newList: Recipe[]) => {
+      this.updateRecipeList.next(newList)
+    })
 
-  getRecipe(id: number) {
-    return this.recipes[id]
   }
 
 }

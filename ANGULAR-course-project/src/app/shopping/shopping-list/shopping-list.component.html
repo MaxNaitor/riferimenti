@@ -3,8 +3,8 @@
         <router-outlet></router-outlet>
         <hr>
         <ul class="list-group">
-            <a class="list-group-item" style="cursor: pointer;" *ngFor="let ing of ingredients; let i = index"
-                [routerLink]="['/shopping',i,'edit']">
+            <a class="list-group-item" style="cursor: pointer;" *ngFor="let ing of ingredients;"
+                [routerLink]="['/shopping',ing.id,'edit']">
                 {{ing.name}} ({{ing.amount}})
             </a>
         </ul>

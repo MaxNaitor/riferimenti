@@ -11,7 +11,6 @@ import { Recipe } from '../recipe.model';
 })
 export class RecipeDetailComponent implements OnInit {
 
-  recipeId: number;
   recipe: Recipe;
 
   constructor(private shoppingService: ShoppingService, private recipesService: RecipesService, private route: ActivatedRoute, private router: Router) { }
@@ -22,8 +21,9 @@ export class RecipeDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.recipeId = +params['id']
-      this.recipe = this.recipesService.getRecipe(this.recipeId)
+      this.recipesService.getRecipeById(params['id']).subscribe((resultData: Recipe) => {
+        this.recipe = resultData
+      })
     })
   }
 
@@ -33,7 +33,7 @@ export class RecipeDetailComponent implements OnInit {
 
   onDelete() {
     if (confirm('Delete the recipe?')) {
-      this.recipesService.deleteRecipe(this.recipeId)
+      this.recipesService.deleteRecipe(this.recipe.id)
       this.router.navigate(['recipes'])
     }
   }
